@@ -17,14 +17,14 @@ from microdialysis_equations import *
 # Conc over the entire volume if no protein present (25 equal to starting in
 # the red chamber with a conc of 100 µM if chambers are 100 and 300 ul)
 experimental_parameters = {
-    # c is compounds concentration over the entire volume if no protein
-    # present (25 equal to starting in the red chamber with a conc of 100
-    # µM if chambers are 100 and 300 ul)
-    # p is protein, kdpc is the Kd of pc complex, redvol and whitevol are
-    # volumes of respective chambers.
-    'c': 25,
-    'p': 80,  # protein concentration
-    'kdpc': 1,
+    # l0 is total compound, or ligand concentration over the entire volume
+    #  if no protein was present (25 equal to starting in the red chamber
+    #  with a conc of 100 µM if chambers are 100 and 300 ul)
+    # t0 is target, or protein concentration in the red chamber, kdpc is the Kd
+    #  of pc complex, redvol and whitevol are volumes of respective chambers.
+    'l0': 25,
+    't0': 80,  # protein concentration
+    'kdtl': 1,
     'redvol': 100,
     'whitevol': 300,
 }
@@ -37,19 +37,19 @@ print(
 print()
 print("Poorly equilibrating compounds")
 print("******************************")
-experimental_parameters['no_protein_pval']=1.2
+experimental_parameters['pcvalue']=1.2
 print(f"Red volume concentration of {ud_red_c_conc_nonEq(**experimental_parameters):.4f}")
 print(f"White volume concentration of {ud_white_c_conc_nonEq(**experimental_parameters):.4f}")
 print()
-print("P-val to Kd example")
+print("Pt-value to Kd example")
 print("*******************")
 experimental_observations={
-    'c':25,
-    'p':80,
+    'l0':25,
+    't0':80,
     'redvol': 100,
     'whitevol': 300,
-    'no_protein_pval':1.21,
-    'pval':1.9,
+    'pcvalue':1.21,
+    'ptvalue':1.9,
 }
 print(f"{experimental_observations=}")
-print(f"Kd={ud_Kd_from_pval_nonEq(**experimental_observations):.4f}")
+print(f"Kd={ud_Kd_from_ptvalue_nonEq(**experimental_observations):.4f}")
