@@ -1,7 +1,7 @@
 """
 Simulate a microdialysis experiment
 
-Simple example simulating a microdialysis experiment with single point
+Simple example simulafting a microdialysis experiment with single point
 values, once with a perfectly equilibrating compound, and then again with
 one which does not.
 """
@@ -31,15 +31,15 @@ experimental_parameters = {
 print("Perfectly equilibrating compounds")
 print("*********************************")
 print(
-    f"Red volume concentration of {ud_red_c_conc(**experimental_parameters):.4f}")
+    f"Red volume concentration of {ud_red_l_conc (**experimental_parameters):.4f}")
 print(
-    f"White volume concentration of {ud_white_c_conc(**experimental_parameters):.4f}")
+    f"White volume concentration of {ud_white_l_conc(**experimental_parameters):.4f}")
 print()
 print("Poorly equilibrating compounds")
 print("******************************")
 experimental_parameters['pcvalue']=1.2
-print(f"Red volume concentration of {ud_red_c_conc_nonEq(**experimental_parameters):.4f}")
-print(f"White volume concentration of {ud_white_c_conc_nonEq(**experimental_parameters):.4f}")
+print(f"Red volume concentration of {ud_red_l_conc_nonEq(**experimental_parameters):.4f}")
+print(f"White volume concentration of {ud_white_l_conc_nonEq(**experimental_parameters):.4f}")
 print()
 print("Pt-value to Kd example")
 print("*******************")

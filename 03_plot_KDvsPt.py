@@ -1,3 +1,12 @@
+"""
+Simulate microdialysis experiment behaviour (KD vs Pt)
+
+Simulate KD vs Pt in a microdialysis experiment, using both the full direct
+analytical solution, and the simplified Weidemann equation
+
+"""
+
+
 from matplotlib import pyplot as plt
 import numpy as np
 PROTEIN_CONC=40
@@ -13,8 +22,8 @@ NUM_POINTS_ON_XAXIS = 1000 # Publication used 2000 pts along X
 x_axis = np.linspace(XAXIS_BEGINNING,XAXIS_END, NUM_POINTS_ON_XAXIS)
 
 y=np.full((2,NUM_POINTS_ON_XAXIS), np.nan)
-y[0]=ud_red_c_conc(PROTEIN_CONC, L0_CONC, x_axis, REDVOL, WHITEVOL)
-y[1]=ud_white_c_conc(PROTEIN_CONC, L0_CONC, x_axis, REDVOL, WHITEVOL)
+y[0]=ud_red_l_conc(PROTEIN_CONC, L0_CONC, x_axis, REDVOL, WHITEVOL)
+y[1]=ud_white_l_conc(PROTEIN_CONC, L0_CONC, x_axis, REDVOL, WHITEVOL)
 
 fig, ax = plt.subplots(1,1, figsize=(8, 6), sharex=True)
 fig.suptitle("qµD simulation, K$_\mathrm{D}$ vs P$_t$."+
