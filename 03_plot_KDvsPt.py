@@ -16,9 +16,9 @@ from microdialysis_equations import *
 L0_CONC=50
 REDVOL=100
 WHITEVOL=300
-XAXIS_BEGINNING = 0  # pKD of 3 is µM
-XAXIS_END = 500  # pKD of 12 is pM
-NUM_POINTS_ON_XAXIS = 1000 # Publication used 2000 pts along X
+XAXIS_BEGINNING = 0
+XAXIS_END = 500
+NUM_POINTS_ON_XAXIS = 1000 # Publication used 1000 pts along X
 x_axis = np.linspace(XAXIS_BEGINNING,XAXIS_END, NUM_POINTS_ON_XAXIS)
 
 y=np.full((2,NUM_POINTS_ON_XAXIS), np.nan)
