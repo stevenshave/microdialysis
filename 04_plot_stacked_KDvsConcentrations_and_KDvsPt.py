@@ -7,13 +7,13 @@ white chambers, and KD vs Pt in a microdialysis experiments
 
 
 
-
 from matplotlib import pyplot as plt
 import numpy as np
-PROTEIN_CONC=80
+PROTEIN_CONC=40
 from microdialysis_equations import *
 
 L0_CONC=25
+PCVALUE=1.0
 REDVOL=100
 WHITEVOL=300
 XAXIS_BEGINNING = 0  # pKD of 3 is µM
@@ -22,8 +22,8 @@ NUM_POINTS_ON_XAXIS = 1000 # Publication used 2000 pts along X
 x_axis = np.linspace(XAXIS_BEGINNING,XAXIS_END, NUM_POINTS_ON_XAXIS)
 
 y=np.full((2,NUM_POINTS_ON_XAXIS), np.nan)
-y[0]=ud_red_l_conc(PROTEIN_CONC, L0_CONC, x_axis, REDVOL, WHITEVOL)
-y[1]=ud_white_l_conc(PROTEIN_CONC, L0_CONC, x_axis, REDVOL, WHITEVOL)
+y[0]=qud_lred(PROTEIN_CONC, L0_CONC, x_axis, REDVOL, WHITEVOL, PCVALUE)
+y[1]=qud_lwhite(PROTEIN_CONC, L0_CONC, x_axis, REDVOL, WHITEVOL, PCVALUE)
 
 fig, ax = plt.subplots(2,1, figsize=(8, 6), sharex=True)
 fig.suptitle("qµD simulation, K$_\mathrm{D}$ vs red and white chamber compound concentration and p-values"+

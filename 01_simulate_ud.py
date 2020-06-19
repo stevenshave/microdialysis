@@ -27,19 +27,20 @@ experimental_parameters = {
     'kdtl': 1,
     'redvol': 100,
     'whitevol': 300,
+    'pcvalue':1.0
 }
 print("Perfectly equilibrating compounds")
 print("*********************************")
 print(
-    f"Red volume concentration of {ud_red_l_conc (**experimental_parameters):.4f}")
+    f"Red volume concentration of {qud_lred (**experimental_parameters):.4f}")
 print(
-    f"White volume concentration of {ud_white_l_conc(**experimental_parameters):.4f}")
+    f"White volume concentration of {qud_lwhite(**experimental_parameters):.4f}")
 print()
 print("Poorly equilibrating compounds")
 print("******************************")
 experimental_parameters['pcvalue']=1.2
-print(f"Red volume concentration of {ud_red_l_conc_nonEq(**experimental_parameters):.4f}")
-print(f"White volume concentration of {ud_white_l_conc_nonEq(**experimental_parameters):.4f}")
+print(f"Red volume concentration of {qud_lred(**experimental_parameters):.4f}")
+print(f"White volume concentration of {qud_lwhite(**experimental_parameters):.4f}")
 print()
 print("Pt-value to Kd example")
 print("*******************")
@@ -52,4 +53,4 @@ experimental_observations={
     'ptvalue':1.9,
 }
 print(f"{experimental_observations=}")
-print(f"Kd={ud_Kd_from_ptvalue_nonEq(**experimental_observations):.4f}")
+print(f"Kd={qud_Kd_from_ptvalue(**experimental_observations):.4f}")
