@@ -22,9 +22,9 @@ experimental_parameters = {
     #  with a conc of 100 µM if chambers are 100 and 300 ul)
     # t0 is target, or protein concentration in the red chamber, kdpc is the Kd
     #  of pc complex, redvol and whitevol are volumes of respective chambers.
-    'l0': 25,
+    'l0': 50,
     't0': 80,  # protein concentration
-    'kdtl': 1,
+    'kdtl': 500,
     'redvol': 100,
     'whitevol': 300,
     'pcvalue':1.0
@@ -35,22 +35,27 @@ print(
     f"Red volume concentration of {qud_lred (**experimental_parameters):.4f}")
 print(
     f"White volume concentration of {qud_lwhite(**experimental_parameters):.4f}")
+print(
+    f"Pt-value = {qud_ptvalue(**experimental_parameters):.4f}")
+    
 print()
 print("Poorly equilibrating compounds")
 print("******************************")
 experimental_parameters['pcvalue']=1.2
 print(f"Red volume concentration of {qud_lred(**experimental_parameters):.4f}")
 print(f"White volume concentration of {qud_lwhite(**experimental_parameters):.4f}")
+print(f"Pt-value = {qud_ptvalue(**experimental_parameters):.4f}")
+
 print()
 print("Pt-value to Kd example")
 print("*******************")
 experimental_observations={
-    'l0':25,
+    'l0':50,
     't0':80,
     'redvol': 100,
     'whitevol': 300,
-    'pcvalue':1.21,
-    'ptvalue':1.9,
+    'pcvalue':1.08,
+    'ptvalue':1.43,
 }
 print(f"{experimental_observations=}")
 print(f"Kd={qud_Kd_from_ptvalue(**experimental_observations):.4f}")
