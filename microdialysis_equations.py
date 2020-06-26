@@ -1,7 +1,8 @@
 #from numpy import sqrt
 from autograd.numpy import sqrt
 
-def qud_lred(t0:float, l0:float, kdtl:float, redvol:float, whitevol:float, pcvalue:float):
+
+def qud_lred(t0: float, l0: float, kdtl: float, redvol: float, whitevol: float, pcvalue: float):
     """Calculate the compound concentration in the red chamber in a partially equlibrated system
 
     Args:
@@ -27,7 +28,7 @@ def qud_lred(t0:float, l0:float, kdtl:float, redvol:float, whitevol:float, pcval
                   l0*kdtl*pcvalue*whitevol**2 + l0**2*pcvalue**2*whitevol**2 + l0*pcvalue*t0*whitevol**2)))/(2.*(pcvalue**2*redvol**2 + pcvalue*redvol*whitevol))
 
 
-def qud_lwhite(t0:float, l0:float, kdtl:float, redvol:float, whitevol:float, pcvalue:float):
+def qud_lwhite(t0: float, l0: float, kdtl: float, redvol: float, whitevol: float, pcvalue: float):
     """Calculate the compound concentration in the white chamber in a partially equlibrated system
 
     Args:
@@ -48,13 +49,15 @@ def qud_lwhite(t0:float, l0:float, kdtl:float, redvol:float, whitevol:float, pcv
                   l0*pcvalue*whitevol)**2))/(2.*(pcvalue**2*redvol + pcvalue*whitevol))
 
 
-def qud_ptvalue(t0:float, l0:float, kdtl:float, redvol:float, whitevol:float, pcvalue:float):
+def qud_ptvalue(t0: float, l0: float, kdtl: float, redvol: float, whitevol: float, pcvalue: float):
     return (kdtl*pcvalue*redvol - l0*pcvalue*redvol + pcvalue*redvol*t0 - kdtl*whitevol - l0*pcvalue*whitevol + sqrt((-(kdtl*pcvalue*redvol) + l0*pcvalue*redvol - pcvalue*redvol*t0 + kdtl*whitevol + l0*pcvalue*whitevol)**2 - 4*kdtl*redvol*(-(l0*pcvalue**2*redvol) - kdtl*pcvalue*whitevol - l0*pcvalue**2*whitevol - pcvalue*t0*whitevol)))/(2.*kdtl*redvol)
 
-def qud_Kd_from_ptvalue(ptvalue:float, t0:float, l0:float, redvol:float, whitevol:float, pcvalue:float):
+
+def qud_Kd_from_ptvalue(ptvalue: float, t0: float, l0: float, redvol: float, whitevol: float, pcvalue: float):
     """Calculate the protein-ligand interaction Kd from Pt in a partially equilibrated system
 
     Args:
+        ptvalue (float): Pt value (lred/lwhite)
         t0 (float): Target concentration (in the red chamber)
         l0 (float): Ligand concentration, over the entire volume of red and white chambers when fully equilibrated.
         redvol (float): Volume of the red chamber
@@ -69,7 +72,7 @@ def qud_Kd_from_ptvalue(ptvalue:float, t0:float, l0:float, redvol:float, whitevo
             l0*pcvalue**2*whitevol - pcvalue*t0*whitevol + l0*pcvalue*ptvalue*whitevol)/((pcvalue - ptvalue)*(ptvalue*redvol + whitevol))
 
 
-def qud_Kd_from_lred(lred:float, t0:float, l0:float, redvol:float, whitevol:float, pcvalue:float):
+def qud_Kd_from_lred(lred: float, t0: float, l0: float, redvol: float, whitevol: float, pcvalue: float):
     """Calculate the protein-ligand interaction Kd from ligand in red chamber in a partially equilibrated system
 
     Args:
@@ -83,12 +86,13 @@ def qud_Kd_from_lred(lred:float, t0:float, l0:float, redvol:float, whitevol:floa
     Returns:
         float: Kd of the target-ligand interaction
     """
-    return (-(l0**2*pcvalue**2*redvol**2) + 2*l0*lred*pcvalue**2*redvol**2 - lred**2*pcvalue**2*redvol**2 + l0*lred*pcvalue*redvol*whitevol - lred**2*pcvalue*redvol*whitevol -
-            -       2*l0**2*pcvalue**2*redvol*whitevol + 2*l0*lred*pcvalue**2*redvol*whitevol - l0*pcvalue*redvol*t0*whitevol + lred*pcvalue*redvol*t0*whitevol + l0*lred*pcvalue*whitevol**2 - l0**2*pcvalue**2*whitevol**2 -
-            -       l0*pcvalue*t0*whitevol**2)/(whitevol*(l0*pcvalue*redvol - lred*pcvalue*redvol - lred*whitevol + l0*pcvalue*whitevol))
+    return ((-l0 ** 2)*pcvalue ** 2*redvol ** 2 + 2*l0*lred*pcvalue ** 2*redvol ** 2 - lred ** 2*pcvalue ** 2*redvol ** 2 +
+            l0*lred*pcvalue*redvol*whitevol - lred ** 2*pcvalue*redvol*whitevol - 2*l0 ** 2*pcvalue ** 2*redvol*whitevol +
+            2*l0*lred*pcvalue ** 2*redvol*whitevol - l0*pcvalue*redvol*t0*whitevol + lred*pcvalue*redvol*t0*whitevol + l0*lred*pcvalue*whitevol ** 2 -
+            l0 ** 2*pcvalue ** 2*whitevol ** 2 - l0*pcvalue*t0*whitevol ** 2)/(whitevol*(l0*pcvalue*redvol - lred*pcvalue*redvol -
+                                                                                     lred*whitevol + l0*pcvalue*whitevol))
 
-
-def qud_Kd_from_lwhite(lwhite:float, t0:float, l0:float, redvol:float, whitevol:float, pcvalue:float):
+def qud_Kd_from_lwhite(lwhite: float, t0: float, l0: float, redvol: float, whitevol: float, pcvalue: float):
     """Calculate the protein-ligand interaction Kd from ligand in white chamber in a partially equilibrated system
 
     Args:

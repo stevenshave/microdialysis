@@ -25,18 +25,26 @@ y=np.full((2,NUM_POINTS_ON_XAXIS), np.nan)
 y[0]=qud_lred(PROTEIN_CONC, L0_CONC, x_axis, REDVOL, WHITEVOL, 1.0)
 y[1]=qud_lwhite(PROTEIN_CONC, L0_CONC, x_axis, REDVOL, WHITEVOL, 1.0)
 
-fig, ax = plt.subplots(1,1, figsize=(8, 6), sharex=True)
-fig.suptitle("qµD simulation, K$_\mathrm{D}$ vs P$_t$."+
-f"\nRed chamber = {REDVOL} µl, White chamber = {WHITEVOL} µl,\n[t0]={PROTEIN_CONC} µM, [l0]={L0_CONC} µM")
+fig, ax = plt.subplots(1,1, figsize=(7.204724, 5.09424929292), sharex=True)
+fig.suptitle("qµD simulation", y=0.95, fontsize=14)
+
+# Uncomment the line bellow to display the system as simulated by the
+# simplified Weidemann equation, as detailed in PMID: 20681515
 #ax.plot((PROTEIN_CONC/x_axis)+1, 'k--', label='Simplified Weidemann equation')
+
 ax.plot(x_axis,y[0]/y[1], 'k', label='System')
 
 ax.set_xlim(XAXIS_BEGINNING,XAXIS_END)
 ax.grid()
 ax.set_ylim(0,np.max(y[0]/y[1]))
-ax.hlines(1,XAXIS_BEGINNING,XAXIS_END, linestyle='dotted', label="Equlibrium (P$_t$ = 1)")
+ax.hlines(1,XAXIS_BEGINNING,XAXIS_END, linestyle='dotted', label="Equlibrium ($p_t$ = 1)")
 ax.legend()
-ax.set_ylabel("P$_t$")
-ax.set_xlabel(r"Compound K$_\mathrm{D}$ (µM)")
-plt.tight_layout(h_pad=0.04, rect=(0,0,1,0.9))
+ax.set_ylabel("$p_t$",  fontsize=12)
+ax.set_xlabel(r"Compound K$_\mathrm{D}$ (µM)", fontsize=12)
+for tick in ax.xaxis.get_major_ticks():
+    tick.label.set_fontsize(12)
+for tick in ax.yaxis.get_major_ticks():
+    tick.label.set_fontsize(12)
+
+plt.tight_layout(rect=(0,0,1,1))
 plt.show()
