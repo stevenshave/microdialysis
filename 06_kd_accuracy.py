@@ -40,8 +40,6 @@ for conc_i, conc in enumerate(lwhite_concs_to_get_kds_from):
     ax.axvline(highKd)
     print(conc, lowKd, highKd)
 
-
-
 ax.set_xlim(XAXIS_BEGINNING,XAXIS_END)
 ax.set_ylim(25,51)
 
