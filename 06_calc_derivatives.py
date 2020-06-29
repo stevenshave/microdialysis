@@ -1,5 +1,20 @@
-#from numpy import sqrt
-from numpy import sqrt
+"""
+Differentiate redconc, whiteconc, pt
+
+Simulate the rate of change of redconc, whiteconc and pts, also KD with
+respect to these values.  Requires the autograd package. We redefine all the
+equations present in microdialysis_equations.py so that sqrt is suppled by the
+autograd package.
+"""
+import sys
+from autograd import grad
+from autograd.numpy import sqrt
+t0 = 80.0
+l0 = 50.0
+redvol = 100.0
+whitevol = 300.0
+pc = 1.0
+KDS_to_simulate = [1., 100., 200., 300., 400., 500.]
 
 def qud_lred(t0: float, l0: float, kdtl: float, redvol: float, whitevol: float, pc: float):
     """Calculate the compound concentration in the red chamber in a partially equlibrated system
@@ -61,7 +76,7 @@ def qud_pt(t0: float, l0: float, kdtl: float, redvol: float, whitevol: float, pc
 
     Returns:
         float: pt value
-    """  
+    """    
     return (kdtl*pc*redvol - l0*pc*redvol + pc*redvol*t0 - kdtl*whitevol - l0*pc*whitevol + sqrt((-(kdtl*pc*redvol) + l0*pc*redvol - pc*redvol*t0 + kdtl*whitevol + l0*pc*whitevol)**2 - 4*kdtl*redvol*(-(l0*pc**2*redvol) - kdtl*pc*whitevol - l0*pc**2*whitevol - pc*t0*whitevol)))/(2.*kdtl*redvol)
 
 
@@ -119,3 +134,38 @@ def qud_Kd_from_lwhite(lwhite: float, t0: float, l0: float, redvol: float, white
         float: Kd of the target-ligand interaction
     """
     return -((lwhite*(l0*pc*redvol - lwhite*pc**2*redvol - pc*redvol*t0 + l0*pc*whitevol - lwhite*pc*whitevol))/(l0*redvol - lwhite*pc*redvol + l0*whitevol - lwhite*whitevol))
+
+
+
+
+
+
+
+
+
+
+
+
+
+g_lred_wrt_kd = grad(lambda kd: qud_lred(t0,l0,kd,redvol,whitevol,1.0))
+g_lwhite_wrt_kd = grad(lambda kd: qud_lwhite(t0,l0,kd,redvol,whitevol,1.0))
+g_pt_wrt_kd = grad(lambda kd: qud_pt(t0,l0,kd,redvol,whitevol,1.0))
+
+print(f"{'KD':>10},{'lred':>10},{'dlreddKD':>10},{'lwhite':>10},{'dlwhitedKD':>10},{'pt':>10},{'dlptdKD':>10}")
+for kd in KDS_to_simulate:
+    lwhite = qud_lwhite(t0, l0, kd, redvol, whitevol, 1.0)
+    lred = qud_lred(t0, l0, kd, redvol, whitevol, 1.0)
+    pt = qud_pt(t0, l0, kd, redvol, whitevol, 1.0)
+    print(f"{kd:>10.0f},{lred:>10.4f},{g_lred_wrt_kd(kd):>10.4f},{lwhite:>10.4f},{g_lwhite_wrt_kd(kd):>10.4f},{pt:>10.4f},{g_pt_wrt_kd(kd):>10.4f}")
+print()
+
+
+g_kd_wrt_lred = grad(lambda lred: qud_Kd_from_lred(lred,t0,l0,redvol,whitevol,1.0))
+g_kd_wrt_lwhite = grad(lambda lwhite: qud_Kd_from_lwhite(lwhite,t0,l0,redvol,whitevol,1.0))
+g_kd_wrt_ptval = grad(lambda pt: qud_Kd_from_pt(pt,t0,l0,redvol,whitevol,1.0))
+print(f"{'KD':>10},{'lred':>10},{'dKDdlred':>10},{'lwhite':>10},{'dlKDdlwhite':>10},{'pt':>10},{'dKDdlpt':>10}")
+for kd in KDS_to_simulate:
+    lred = qud_lred(t0, l0, kd, redvol, whitevol, 1.0)
+    lwhite = qud_lwhite(t0, l0, kd, redvol, whitevol, 1.0)
+    pt = qud_pt(t0, l0, kd, redvol, whitevol, 1.0)
+    print(f"{kd:>10.0f},{lred:>10.4f},{g_kd_wrt_lred(lred):>10.4f},{lwhite:>10.4f},{g_kd_wrt_lwhite(lwhite):>10.4f},{pt:>10.4f},{g_kd_wrt_ptval(pt):>10.4f}")

@@ -27,7 +27,7 @@ experimental_parameters = {
     'kdtl': 500,
     'redvol': 100,
     'whitevol': 300,
-    'pcvalue':1.0
+    'pc':1.0
 }
 print("Perfectly equilibrating compounds")
 print("*********************************")
@@ -36,15 +36,15 @@ print(
 print(
     f"White volume concentration of {qud_lwhite(**experimental_parameters):.4f}")
 print(
-    f"Pt-value = {qud_ptvalue(**experimental_parameters):.4f}")
+    f"Pt-value = {qud_pt(**experimental_parameters):.4f}")
     
 print()
 print("Poorly equilibrating compounds")
 print("******************************")
-experimental_parameters['pcvalue']=1.2
+experimental_parameters['pc']=1.2
 print(f"Red volume concentration of {qud_lred(**experimental_parameters):.4f}")
 print(f"White volume concentration of {qud_lwhite(**experimental_parameters):.4f}")
-print(f"Pt-value = {qud_ptvalue(**experimental_parameters):.4f}")
+print(f"Pt-value = {qud_pt(**experimental_parameters):.4f}")
 
 print()
 print("Pt-value to Kd example")
@@ -54,8 +54,8 @@ experimental_observations={
     't0':80,
     'redvol': 100,
     'whitevol': 300,
-    'pcvalue':1.08,
-    'ptvalue':1.43,
+    'pc':1.08,
+    'pt':1.43,
 }
 print(f"{experimental_observations=}")
-print(f"Kd={qud_Kd_from_ptvalue(**experimental_observations):.4f}")
+print(f"Kd={qud_Kd_from_pt(**experimental_observations):.4f}")

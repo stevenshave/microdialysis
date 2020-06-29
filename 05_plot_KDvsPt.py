@@ -9,28 +9,29 @@ analytical solution, and the simplified Weidemann equation
 
 from matplotlib import pyplot as plt
 import numpy as np
-PROTEIN_CONC=80
 
 from microdialysis_equations import *
 
-L0_CONC=50
-REDVOL=100
-WHITEVOL=300
+t0=80
+l0=50
+redvol=100
+whitevol=300
 XAXIS_BEGINNING = 0
 XAXIS_END = 500
+pc=1.0
 NUM_POINTS_ON_XAXIS = 1000 # Publication used 1000 pts along X
 x_axis = np.linspace(XAXIS_BEGINNING,XAXIS_END, NUM_POINTS_ON_XAXIS)
 
 y=np.full((2,NUM_POINTS_ON_XAXIS), np.nan)
-y[0]=qud_lred(PROTEIN_CONC, L0_CONC, x_axis, REDVOL, WHITEVOL, 1.0)
-y[1]=qud_lwhite(PROTEIN_CONC, L0_CONC, x_axis, REDVOL, WHITEVOL, 1.0)
+y[0]=qud_lred(t0, l0, x_axis, redvol, whitevol, pc)
+y[1]=qud_lwhite(t0, l0, x_axis, redvol, whitevol, pc)
 
 fig, ax = plt.subplots(1,1, figsize=(7.204724, 5.09424929292), sharex=True)
 fig.suptitle("qµD simulation", y=0.95, fontsize=14)
 
 # Uncomment the line bellow to display the system as simulated by the
 # simplified Weidemann equation, as detailed in PMID: 20681515
-#ax.plot((PROTEIN_CONC/x_axis)+1, 'k--', label='Simplified Weidemann equation')
+#ax.plot((t0/x_axis)+1, 'k--', label='Simplified Weidemann equation')
 
 ax.plot(x_axis,y[0]/y[1], 'k', label='System')
 
