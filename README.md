@@ -1,5 +1,5 @@
 # Microdialysis (qµD)
-![qµD simulation showing chamber compound concentration as a function of K<sub>D</sub>](2020-06-26_Figure1-KDvsConcentrations_SS1.svg)
+![qµD diagramatic overview for K<sub>D</sub> determination](quD-overview.svg)
 
 Functions for simulation of quantitative microdialysis (qµD) experiments, as described and used in the recently submitted MDPI Methods and Protocols manuscript 
 :
