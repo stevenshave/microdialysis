@@ -1,12 +1,11 @@
 # Microdialysis (qµD)
 ![qµD diagramatic overview for K<sub>D</sub> determination](quD-overview.svg)
 
-Functions for simulation of quantitative microdialysis (qµD) experiments, as described and used in the recently submitted MDPI Methods and Protocols manuscript 
-:
+Functions for simulation of quantitative microdialysis (qµD) experiments, as described in :
 
-"*Quantitative Microdialysis for Rapid Affinity Determination of Small
-Molecules to Target Proteins and for Exclusion of Compounds with Poor
-Physicochemical Properties.*" - Currently under review
+
+Shave, S., Pham, N.T., Śmieja, C.B. and Auer, M., 2020. Quantitative Microdialysis: Experimental Protocol and Software for Small Molecule Protein Affinity Determination and for Exclusion of Compounds with Poor Physicochemical Properties. Methods and Protocols, 3(3), p.55. 
+[https://doi.org/10.3390/mps3030055](https://doi.org/10.3390/mps3030055)
 
 ## Installation and requirements
 
@@ -27,8 +26,8 @@ This program allows single point simulation of qµD experiments.  Looking throug
 
 ----
 
-#### 02_plot_KDvsConcentrations.py
-Program to simulate compound concentration in the red and white chambers as a function of K<sub>D</sub>.  Produces figure 1 as shown in paper.
+#### 02_plot_KDvsConcentrations.py and 02_plot_KDvsConcentrationsAnimation.py
+Program to simulate compound concentration in the red and white chambers as a function of K<sub>D</sub>.  Produces figure 1 as shown in paper. 02_plot_KDvsConcentrationsAnimation.py produces an animated version of the plot with varying K<sub>D</sub>.
 
 ![qµD simulation showing chamber compound concentration as a function of K<sub>D</sub>](2020-06-26_Figure1-KDvsConcentrations_SS1.svg)
 
